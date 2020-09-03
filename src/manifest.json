@@ -1,0 +1,54 @@
+{
+  "manifest_version" : 2,
+  "name"             : "page-load-time-research",
+  "version"          : "0.0.1",
+  "description"      : "Stores the measurements from Performance Navigation Timing API.",
+
+  "background": {
+    "page": "background.html"
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "32"  : "img/speed-32.png",
+      "64"  : "img/speed-64.png",
+      "128" : "img/speed-128.png",
+      "256" : "img/speed-256.png",
+      "512" : "img/speed-512.png"
+    }
+  },
+
+  "content_scripts": [
+    {
+      "matches"    : ["http://*/*", "https://*/*"],
+      "js"         : ["lib/browser-polyfill.js"
+                    , "js/contentscript.js"],
+      "run_at"     : "document_end",
+      "all_frames" : true
+    }
+  ],
+
+  "icons": {
+    "32"  : "img/speed-32.png",
+    "64"  : "img/speed-64.png",
+    "128" : "img/speed-128.png",
+    "256" : "img/speed-256.png",
+    "512" : "img/speed-512.png"
+  },
+
+  "options_ui": {
+    "page"          : "options.html",
+    "open_in_tab"   : true,
+    "browser_style" : false,
+    "chrome_style"  : false
+  },
+
+  "permissions": [
+    "activeTab"
+   ,"storage"
+   ,"tabs"
+   ,"unlimitedStorage"
+   ,"<all_urls>"
+  ]
+
+}
