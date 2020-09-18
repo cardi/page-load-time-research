@@ -6,7 +6,7 @@ import {db, testExportText} from '/js/db.js';
 
 (async function(){
 
-let DEBUG = 0;
+let DEBUG = 1;
 
 DEBUG && browser.tabs.create({url: browser.runtime.getURL('options.html') });
 DEBUG && console.log("test module export: " + testExportText)
@@ -36,10 +36,19 @@ async function handleMessage(request, sender, sendResponse) {
     DEBUG && console.log("request:", request);
   }
 
-  await db.data.add({
-    timestamp: request.timestamp,
-    entry: request.entry
-  })
+  // for our auto-downloader
+  if (request.url != null) {
+    let downloading = browser.downloads.download({
+                        url: request.url,
+                        filename: "page-load-stats.plt_stats",
+                        conflictAction : 'uniquify'});
+
+  } else {
+    await db.data.add({
+      timestamp: request.timestamp,
+      entry: request.entry
+    })
+  }
 
   return new Promise(resolve => resolve({response: "ok"}));
 }
