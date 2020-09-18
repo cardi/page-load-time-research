@@ -6,7 +6,7 @@ export const testExportText = "lorem ipsum";
 
 export const db = new Dexie('plt');
 
-let DEBUG = 1;
+let DEBUG = 0;
 
 db.version(1).stores({
   data: '++id, timestamp, entry'
